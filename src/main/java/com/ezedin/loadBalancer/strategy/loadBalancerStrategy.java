@@ -58,7 +58,7 @@ public abstract class loadBalancerStrategy {
         }
     }
 
-    private void unhealthy(String url) {
+    public void unhealthy(String url) {
         if(!this.invalidServers.contains(url)) {
             this.invalidServers.add(url);
         }

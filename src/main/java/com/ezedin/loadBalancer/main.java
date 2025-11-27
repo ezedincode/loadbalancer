@@ -1,5 +1,6 @@
 package com.ezedin.loadBalancer;
 
+import com.ezedin.loadBalancer.strategy.RoundRobin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,8 +26,10 @@ public class main {
                 .get()
                 .build();
         var response = client.newCall(request).execute();
+        new RoundRobin(urlExtractor(response));
+
     }
-    public List<String> urlExtractor(Response response) throws JsonProcessingException {
+    public static List<String> urlExtractor(Response response) throws JsonProcessingException {
         List <String> list= new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(String.valueOf(response));
