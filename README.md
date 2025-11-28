@@ -8,7 +8,6 @@ A lightweight, configurable load balancer built in Java that supports multiple l
 - **Automatic Health Checking**: Periodic health checks to ensure only healthy servers receive traffic
 - **Service Discovery Integration**: Automatically discovers services from Eureka Server
 - **Docker & Local Environment Support**: Works seamlessly in both Docker containers and local development
-- **Configurable**: Easy configuration through program arguments
 - **Lightweight**: Built with OkHttp for efficient HTTP handling
 
 ## Prerequisites
@@ -37,30 +36,31 @@ Cycles through available healthy servers in sequence.
 
 ## Health Checking
 The load balancer automatically performs health checks on registered services:
-TCP Check: Verifies the server is reachable on the network level
 
-HTTP Check: Verifies the /health endpoint returns 200 status with "healthy" in response body
+- TCP Check: Verifies the server is reachable on the network level
 
-Automatic Interval: Health checks run every 2 seconds
+- HTTP Check: Verifies the /health endpoint returns 200 status with "healthy" in response body
 
-Automatic Failover: Unhealthy servers are automatically removed from rotation
+- Automatic Interval: Health checks run every 2 seconds
+
+- Automatic Failover: Unhealthy servers are automatically removed from rotation
 
 ## Service Discovery
 The load balancer integrates with Eureka service discovery:
 
-Automatically discovers services registered with Eureka
+- Automatically discovers services registered with Eureka
 
-Supports both Docker internal IPs and localhost addresses
+- Supports both Docker internal IPs and localhost addresses
 
-Configurable Eureka server URL
+- Configurable Eureka server URL
 ## Eureka Configuration
 By default, the load balancer connects to Eureka at http://localhost:8761/eureka/apps/<application-name>.
 
 ## Docker Support
 The load balancer works in both environments:
 
-Docker Environment: Uses container internal IP addresses
+- Docker Environment: Uses container internal IP addresses
 
-Local Development: Uses localhost with mapped ports
+- Local Development: Uses localhost with mapped ports
 
-Automatic Detection: Health checks determine reachable endpoints
+- Automatic Detection: Health checks determine reachable endpoints
