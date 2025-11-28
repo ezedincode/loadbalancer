@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class main {
     public static void main(String[] args) throws Exception {
-        String applicationName ="API-GATEWAY";
+        String applicationName ="SIMPLE-SERVICE";
         var client = new OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.SECONDS)
                 .readTimeout(3,TimeUnit.SECONDS)
@@ -29,7 +29,7 @@ public class main {
         Request request = new Request.Builder()
                 .url("http://localhost:8761/eureka/apps/" + applicationName)
                 .header("Accept", "application/json")
-                .header("Authorization", "Basic " + base64Credentials) // Add this line
+              .header("Authorization", "Basic " + base64Credentials) // Add this line
                 .build();
 
 
@@ -68,10 +68,10 @@ public class main {
             String port = instance.path("port").get("$").asText();
             String url = "http://" + ip + ":" + port;
             //to handle docker internal ip address
-            if(!url.contains("127.0.0.1")){
-                String url2= "http://localhost"+ ":" + port;
-                list.add(url2);
-            }
+//            if(!url.contains("127.0.0.1")){
+//                String url2= "http://localhost"+ ":" + port;
+//                list.add(url2);
+//            }
             list.add(url);
         }
         System.out.println(list);

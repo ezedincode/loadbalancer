@@ -38,7 +38,7 @@ public abstract class loadBalancerStrategy {
     public abstract Optional<String> getCurrent();
     public void startHealthCheck(){
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        
+        System.out.println("in startHealthCheck");
         Runnable runnable = () -> {
             var list = new ArrayList<String>(this.servers);
             for (String server : list){
@@ -49,6 +49,7 @@ public abstract class loadBalancerStrategy {
     }
 
     public boolean tryHealthCheck(String url) {
+        System.out.println("in tryHealthCheck");
         if (this.isHealthy(url)) {
             this.healthy(url);
             return true;
@@ -74,10 +75,10 @@ public abstract class loadBalancerStrategy {
     }
 
     private boolean isHealthy(String url) {
+        System.out.println("in isHealthy");
         if(!isTcpHealthy(url)){
             return false;
         }
-        try{
             var client = new OkHttpClient.Builder()
                     .connectTimeout(1,TimeUnit.SECONDS)
                     .readTimeout(3,TimeUnit.SECONDS)
@@ -86,11 +87,13 @@ public abstract class loadBalancerStrategy {
                     .url(url + "/health")
                     .get()
                     .build();
-            var response = client.newCall(request).execute();
-            return response.code() == 200 && response.body().toString().contains("healthy");
-        } catch (Exception e) {
-            return false;
-        }
+//        try (var response = client.newCall(request).execute()) {
+            return true;
+//            return response.code() == 200 && response.body().string().contains("healthy");
+//        }
+//    catch (Exception e) {
+//        return false;
+//    }
 
     }
     private boolean isTcpHealthy(String urlString) {

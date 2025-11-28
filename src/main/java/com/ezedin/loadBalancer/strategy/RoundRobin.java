@@ -15,7 +15,9 @@ public class RoundRobin extends loadBalancerStrategy {
     }
     private Optional<String> findNext(Optional<String> lastUrl, List<String> list) {
         if (list.isEmpty()) {
+            System.out.println("empty list in findnext");
             return Optional.empty();
+
         }
         if (lastUrl.isEmpty()) {
             return Optional.of(list.get(0));
