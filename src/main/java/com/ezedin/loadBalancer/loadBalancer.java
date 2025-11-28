@@ -21,7 +21,8 @@ import java.io.OutputStream;
 
 public class loadBalancer {
     private loadBalancerStrategy  lbStrategy;
-    protected loadBalancer(int port){
+    protected loadBalancer(int port,loadBalancerStrategy lbStrategy) throws Exception {
+        this.lbStrategy = lbStrategy;
         var server = new Server(new QueuedThreadPool(20));
         var connector = new ServerConnector(server);
         connector.setPort(port);
@@ -33,6 +34,8 @@ public class loadBalancer {
         server.setHandler(context);
 
         context.addServlet(new ServletHolder(new loadBalancerServlet(this)), "/");
+        server.start();
+        server.join();
 
     }
     public static class loadBalancerServlet extends HttpServlet {
@@ -63,7 +66,8 @@ public class loadBalancer {
             while (retryCount > 0) {
                 var be = loadbalancer.lbStrategy.getNext();
                 if (be.isEmpty()) {
-                    throw new ServletException("No backend found");
+                    System.out.println("nobackend");
+                    return;
                 }
                 var beUrl = be.get();
                 try {

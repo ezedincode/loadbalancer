@@ -26,7 +26,7 @@ public abstract class loadBalancerStrategy {
         this.invalidServers = new ArrayList<>();
     }
     protected loadBalancerStrategy(List<String> list ) {
-        this.servers = new ArrayList<>();
+        this.servers = new ArrayList<>(list);
         this.validServers = new ArrayList<>();
         this.invalidServers = new ArrayList<>();
     }
