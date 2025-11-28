@@ -54,7 +54,7 @@ The load balancer integrates with Eureka service discovery:
 
 - Configurable Eureka server URL
 ## Eureka Configuration
-By default, the load balancer connects to Eureka at http://localhost:8761/eureka/apps/<application-name>.
+By default, the load balancer connects to Eureka at http://localhost:8761/eureka/apps/[application-name].
 
 ## Docker Support
 The load balancer works in both environments:
