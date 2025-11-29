@@ -67,11 +67,11 @@ public class main {
             // Port is inside port object with "$" field, not in metadata
             String port = instance.path("port").get("$").asText();
             String url = "http://" + ip + ":" + port;
-            //to handle docker internal ip address
-//            if(!url.contains("127.0.0.1")){
-//                String url2= "http://localhost"+ ":" + port;
-//                list.add(url2);
-//            }
+          //  to handle docker internal ip address
+            if(!url.contains("127.0.0.1")){
+                String url2= "http://localhost"+ ":" + port;
+                list.add(url2);
+            }
             list.add(url);
         }
         System.out.println(list);

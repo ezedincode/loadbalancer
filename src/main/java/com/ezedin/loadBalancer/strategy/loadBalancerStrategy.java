@@ -87,13 +87,12 @@ public abstract class loadBalancerStrategy {
                     .url(url + "/health")
                     .get()
                     .build();
-//        try (var response = client.newCall(request).execute()) {
-            return true;
-//            return response.code() == 200 && response.body().string().contains("healthy");
-//        }
-//    catch (Exception e) {
-//        return false;
-//    }
+        try (var response = client.newCall(request).execute()) {
+            return response.code() == 200 && response.body().string().contains("healthy");
+        }
+    catch (Exception e) {
+        return false;
+    }
 
     }
     private boolean isTcpHealthy(String urlString) {
