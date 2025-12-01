@@ -57,17 +57,17 @@ public class main {
         String jsonBody = response.body().string();
         JsonNode root = mapper.readTree(jsonBody);
 
-        // Fixed path - use "application" not "applications"
+
         JsonNode applicationNode = root.path("application");
         JsonNode instances = applicationNode.path("instance");
 
 
         for (JsonNode instance : instances) {
             String ip = instance.get("ipAddr").asText();
-            // Port is inside port object with "$" field, not in metadata
+
             String port = instance.path("port").get("$").asText();
             String url = "http://" + ip + ":" + port;
-          //  to handle docker internal ip address
+
             if(!url.contains("127.0.0.1")){
                 String url2= "http://localhost"+ ":" + port;
                 list.add(url2);
